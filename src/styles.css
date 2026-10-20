@@ -1,0 +1,327 @@
+@import "tailwindcss" source(none);
+@source "../src";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  --font-display: "Permanent Marker", "Comic Sans MS", cursive;
+  --font-sans: "Outfit", system-ui, sans-serif;
+  --font-jp: "Zen Kaku Gothic New", "Hiragino Sans", sans-serif;
+
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --radius-2xl: calc(var(--radius) + 8px);
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-primary-glow: var(--primary-glow);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-sakura: var(--sakura);
+  --color-sakura-deep: var(--sakura-deep);
+  --color-ink: var(--ink);
+  --color-paper: var(--paper);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+}
+
+:root {
+  --radius: 0.5rem;
+  --background: oklch(0.135 0.006 285);
+  --foreground: oklch(0.97 0.005 20);
+  --card: oklch(0.175 0.008 285);
+  --card-foreground: oklch(0.97 0.005 20);
+  --popover: oklch(0.175 0.008 285);
+  --popover-foreground: oklch(0.97 0.005 20);
+  --primary: oklch(0.57 0.21 20);
+  --primary-glow: oklch(0.66 0.22 15);
+  --primary-foreground: oklch(0.99 0 0);
+  --secondary: oklch(0.22 0.01 285);
+  --secondary-foreground: oklch(0.97 0.005 20);
+  --muted: oklch(0.21 0.008 285);
+  --muted-foreground: oklch(0.72 0.015 20);
+  --accent: oklch(0.55 0.09 180);
+  --accent-foreground: oklch(0.99 0 0);
+  --sakura: oklch(0.86 0.07 355);
+  --sakura-deep: oklch(0.74 0.12 355);
+  --ink: oklch(0.1 0.004 285);
+  --paper: oklch(0.99 0.003 80);
+  --destructive: oklch(0.62 0.22 25);
+  --destructive-foreground: oklch(0.99 0 0);
+  --border: oklch(1 0 0 / 12%);
+  --input: oklch(1 0 0 / 16%);
+  --ring: oklch(0.57 0.21 20);
+
+  --gradient-crimson: linear-gradient(135deg, var(--primary), var(--primary-glow));
+  --gradient-fade: linear-gradient(
+    180deg,
+    transparent 0%,
+    oklch(0.135 0.006 285 / 70%) 55%,
+    var(--background) 100%
+  );
+  --gradient-side: linear-gradient(
+    90deg,
+    var(--background) 0%,
+    oklch(0.135 0.006 285 / 85%) 40%,
+    transparent 80%
+  );
+  --shadow-panel: 6px 6px 0 0 var(--primary);
+  --shadow-panel-hover: 10px 10px 0 0 var(--primary);
+  --shadow-glow: 0 10px 40px -10px oklch(0.57 0.21 20 / 70%);
+}
+
+@layer base {
+  * {
+    border-color: var(--color-border);
+  }
+  html {
+    scroll-behavior: smooth;
+  }
+  body {
+    background-color: var(--color-background);
+    color: var(--color-foreground);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+  }
+  ::selection {
+    background: var(--primary);
+    color: var(--primary-foreground);
+  }
+}
+
+@utility font-display {
+  font-family: var(--font-display);
+  letter-spacing: 0.02em;
+}
+@utility font-jp {
+  font-family: var(--font-jp);
+}
+
+/* Cadre planche de manga */
+@utility manga-panel {
+  border: 2px solid var(--foreground);
+  box-shadow: var(--shadow-panel);
+  transition:
+    transform 0.25s ease,
+    box-shadow 0.25s ease;
+}
+@utility manga-panel-hover {
+  &:hover {
+    transform: translate(-3px, -3px);
+    box-shadow: var(--shadow-panel-hover);
+  }
+}
+
+/* Trame halftone */
+@utility halftone {
+  background-image: radial-gradient(oklch(1 0 0 / 7%) 1px, transparent 1.2px);
+  background-size: 9px 9px;
+}
+@utility speedlines {
+  background-image: repeating-conic-gradient(
+    from 0deg at 50% 50%,
+    oklch(1 0 0 / 4%) 0deg 2deg,
+    transparent 2deg 9deg
+  );
+}
+
+/* Coup de pinceau rouge sous un texte */
+@utility ink-underline {
+  position: relative;
+  z-index: 0;
+  &::after {
+    content: "";
+    position: absolute;
+    left: -4%;
+    right: -4%;
+    bottom: 0.02em;
+    height: 0.38em;
+    z-index: -1;
+    background: var(--primary);
+    border-radius: 40% 60% 55% 45% / 60% 40% 60% 40%;
+    transform: rotate(-1.5deg);
+    opacity: 0.9;
+  }
+}
+
+@utility btn-manga {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.85rem 1.6rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  font-size: 0.9rem;
+  color: var(--primary-foreground);
+  background: var(--gradient-crimson);
+  border: 2px solid var(--foreground);
+  box-shadow: 4px 4px 0 0 var(--foreground);
+  transition:
+    transform 0.15s ease,
+    box-shadow 0.15s ease;
+  &:hover {
+    transform: translate(-2px, -2px);
+    box-shadow: 6px 6px 0 0 var(--foreground);
+  }
+  &:active {
+    transform: translate(2px, 2px);
+    box-shadow: 1px 1px 0 0 var(--foreground);
+  }
+  &:disabled {
+    opacity: 0.6;
+    pointer-events: none;
+  }
+}
+@utility btn-ghost-manga {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.85rem 1.6rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  font-size: 0.9rem;
+  color: var(--foreground);
+  border: 2px solid var(--foreground);
+  background: oklch(0.135 0.006 285 / 60%);
+  transition:
+    background 0.2s ease,
+    color 0.2s ease;
+  &:hover {
+    background: var(--foreground);
+    color: var(--background);
+  }
+}
+@utility btn-teal {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.85rem 1.6rem;
+  font-weight: 700;
+  font-size: 0.9rem;
+  color: var(--accent-foreground);
+  background: var(--accent);
+  border: 2px solid var(--foreground);
+  box-shadow: 4px 4px 0 0 var(--foreground);
+  transition:
+    transform 0.15s ease,
+    box-shadow 0.15s ease;
+  &:hover {
+    transform: translate(-2px, -2px);
+    box-shadow: 6px 6px 0 0 var(--foreground);
+  }
+}
+
+@utility chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.5rem 0.9rem;
+  border: 2px solid var(--border);
+  font-weight: 600;
+  font-size: 0.85rem;
+  transition: all 0.15s ease;
+  &:hover {
+    border-color: var(--foreground);
+  }
+  &[data-active="true"] {
+    background: var(--primary);
+    border-color: var(--foreground);
+    color: var(--primary-foreground);
+  }
+}
+
+@utility field {
+  width: 100%;
+  background: var(--secondary);
+  border: 2px solid var(--border);
+  padding: 0.7rem 0.85rem;
+  font-size: 1rem;
+  color: var(--foreground);
+  outline: none;
+  transition: border-color 0.15s ease;
+  &:focus {
+    border-color: var(--primary);
+  }
+  &::placeholder {
+    color: var(--muted-foreground);
+  }
+}
+
+/* Sakura */
+@keyframes petal-fall {
+  0% {
+    transform: translate3d(0, -10vh, 0) rotate(0deg);
+    opacity: 0;
+  }
+  10% {
+    opacity: 0.9;
+  }
+  100% {
+    transform: translate3d(var(--drift, 80px), 110vh, 0) rotate(var(--spin, 540deg));
+    opacity: 0.2;
+  }
+}
+@keyframes petal-sway {
+  0%,
+  100% {
+    margin-left: 0;
+  }
+  50% {
+    margin-left: 30px;
+  }
+}
+.petal {
+  position: absolute;
+  top: 0;
+  border-radius: 150% 0 150% 0;
+  background: linear-gradient(135deg, var(--sakura), var(--sakura-deep));
+  animation:
+    petal-fall linear infinite,
+    petal-sway ease-in-out infinite;
+  will-change: transform;
+}
+
+@keyframes marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+.marquee {
+  animation: marquee 45s linear infinite;
+}
+.marquee:hover {
+  animation-play-state: paused;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .petal,
+  .marquee {
+    animation: none !important;
+  }
+  html {
+    scroll-behavior: auto;
+  }
+}
