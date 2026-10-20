@@ -99,14 +99,6 @@ export const createOrder = createServerFn({ method: "POST" })
         [payload, await clientKey()],
       );
       const row = rows[0];
-
-      console.info("[TRACK ORDER DEBUG]", {
-        number,
-        phoneLookup,
-        rowCount: rows.length,
-        found: Boolean(rows[0]),
-      });
-
       if (!row) return { ok: false, error: "unavailable" };
       return {
         ok: true,

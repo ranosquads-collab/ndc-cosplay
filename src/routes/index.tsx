@@ -30,12 +30,33 @@ export const Route = createFileRoute("/")({
           "cosplay Sénégal, cosplay sur mesure Dakar, costume anime Dakar, cosplay Marvel, cosplay DC",
       },
       { property: "og:title", content: TITLE },
-      {
-        property: "og:description",
-        content: "Plus qu'un cosplay… une identité ! Création de cosplay sur mesure à Dakar.",
-      },
-      { property: "og:type", content: "website" },
-      { name: "twitter:card", content: "summary_large_image" },
+{
+  property: "og:description",
+  content:
+    "Plus qu'un cosplay… une identité ! Création de cosplay sur mesure à Dakar.",
+},
+{ property: "og:type", content: "website" },
+{ property: "og:url", content: "https://ndc-cosplay.vercel.app/" },
+{
+  property: "og:image",
+  content: "https://ndc-cosplay.vercel.app/ndc-logo.png",
+},
+{ property: "og:image:width", content: "1536" },
+{ property: "og:image:height", content: "1024" },
+{ name: "twitter:card", content: "summary_large_image" },
+{
+  name: "twitter:title",
+  content: TITLE,
+},
+{
+  name: "twitter:description",
+  content:
+    "Plus qu'un cosplay… une identité ! Création de cosplay sur mesure à Dakar.",
+},
+{
+  name: "twitter:image",
+  content: "https://ndc-cosplay.vercel.app/ndc-logo.png",
+},
     ],
   }),
   loader: ({ context }) =>
