@@ -47,3 +47,5 @@ dist-ssr
 *.bak2
 *.before-result-fix.bak
 
+.vercel
+.env*
